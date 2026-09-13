@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- === SEO & Metatagy === -->
+  <title>Jakub Sedlák | Python Developer, AI Integrator & Hardware Automation</title>
+  <meta name="description" content="Portfolio Jakuba Sedláka — Python Developer, AI Integrator a Automation Engineer. Specializace na robustní web scraping, LLM systémy, ESP32 IoT a asynchronní architektury." />
+  <meta name="keywords" content="Python Developer, AI Integrator, Hardware Automation, web scraping, Flask, Playwright, LLM integrace, ESP32, kubkic-code, portfolio" />
+  <meta name="author" content="Jakub Sedlák" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#030712" />
+  <link rel="canonical" href="https://kubkic.dev" />
+
+  <!-- === Open Graph (Facebook, LinkedIn, Discord, Telegram) === -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kubkic.dev" />
+  <meta property="og:site_name" content="Jakub Sedlák | kubkic.dev" />
+  <meta property="og:title" content="Jakub Sedlák | Python Developer, AI Integrator & Hardware Automation" />
+  <meta property="og:description" content="Stavím vysoce efektivní nástroje pro web scraping, AI integraci a hardware automatizaci. Code. Automate. Compete." />
+  <meta property="og:image" content="/static/assets/images/og-image.jpg" />
+  <meta property="og:image:secure_url" content="/static/assets/images/og-image.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Jakub Sedlák — Python Developer & AI Engineer Portfolio Preview" />
+  <meta property="og:locale" content="cs_CZ" />
+
+  <!-- === Twitter Cards === -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://kubkic.dev" />
+  <meta name="twitter:title" content="Jakub Sedlák | Python Developer, AI Integrator & Hardware Automation" />
+  <meta name="twitter:description" content="Stavím vysoce efektivní nástroje pro web scraping, AI integraci a hardware automatizaci. Code. Automate. Compete." />
+  <meta name="twitter:image" content="/static/assets/images/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Jakub Sedlák — Python Developer & AI Engineer Portfolio Preview" />
+  <meta name="twitter:creator" content="@kubkic" />
+
+  <!-- Favicon placeholder -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+
+  <!-- === Styly === -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/variables.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/glassmorphism.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/terminal.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}" />
+
+  <!-- === CDN: Three.js + GSAP + Plugins === -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js" crossorigin="anonymous"></script>
+
+  <!-- Inline styly pro reveal animace a cursor -->
+  <style>
+    /* --- Scroll Reveal (CSS fallback — GSAP override) --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal--delay-1 { transition-delay: 0.1s; }
+    .reveal--delay-2 { transition-delay: 0.2s; }
+    .reveal--delay-3 { transition-delay: 0.3s; }
+    .reveal--delay-4 { transition-delay: 0.4s; }
+
+    /* Když běží GSAP, vypneme CSS transitions na .reveal, aby nedocházelo k zásekům */
+    body.has-gsap .reveal {
+      transition: none !important;
+    }
+
+    /* --- Card filter hidden state --- */
+    .card--hidden {
+      display: none !important;
+    }
+
+    /* --- TypeWriter blikající kurzor --- */
+    #typewriter-text::after {
+      content: '|';
+      color: var(--color-cyan);
+      animation: tw-blink 0.8s step-end infinite;
+      margin-left: 1px;
+    }
+    @keyframes tw-blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* --- Hero canvas transition --- */
+    #hero-canvas {
+      transition: opacity 0.5s ease;
+      pointer-events: none !important;   /* canvas nikdy neblokuje scroll ani kliknutí */
+    }
+
+    /* --- Custom Cursor --- */
+    #custom-cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid var(--color-indigo);
+      pointer-events: none;
+      z-index: 9999;
+      transition: width 0.2s, height 0.2s, border-color 0.2s, background 0.2s;
+      mix-blend-mode: screen;
+    }
+    #custom-cursor.cursor--hover {
+      width: 60px; height: 60px;
+      background: rgba(99,102,241,0.12);
+      border-color: var(--color-cyan);
+    }
+    @media (pointer: coarse) { #custom-cursor { display: none; } }
+
+    /* --- Hero sekce --- */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+
+    /* Three.js canvas placeholder */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none !important;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Poloprohledný tmavý backdrop za hero textem pro čitelnost */
+    .hero-content > div {
+      position: relative;
+    }
+    .hero-content > div::before {
+      content: '';
+      position: absolute;
+      inset: -2rem -3rem;
+      background: radial-gradient(ellipse at 30% 50%, rgba(8,9,13,0.82) 0%, rgba(8,9,13,0.5) 60%, transparent 100%);
+      pointer-events: none;
+      z-index: -1;
+      border-radius: 2rem;
+    }
+
+    /* Neonový podtřžení jména */
+    .hero__name {
+      display: block;
+      background: linear-gradient(135deg, #fff 30%, var(--color-indigo), var(--color-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.05;
+      font-size: clamp(3rem, 8vw, 6rem);
+      filter: drop-shadow(0 2px 24px rgba(99,102,241,0.55)) drop-shadow(0 1px 8px rgba(0,0,0,0.9));
+    }
+
+    .hero__tagline {
+      font-family: var(--font-mono);
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      color: var(--color-cyan);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-6);
+    }
+
+    .hero__tagline::before { content: '> '; opacity: 0.5; }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      margin-top: var(--space-8);
+    }
+
+    /* --- Projects grid --- */
+    #projects-grid,
+    .projects-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    /* Během FLIP animace musí CSS transitions kompletně mlčet a karty držet proporce */
+    .is-flipping .project-card,
+    .project-card.is-flipping {
+      transition: none !important;
+      pointer-events: none !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+    }
+
+    /* --- Stats grid --- */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+    }
+
+    /* --- Dual Drive sekce --- */
+    .dual-drive-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .dual-drive-card--sport,
+    .dual-drive-grid > .dual-drive-card:first-of-type {
+      grid-column: 1;
+    }
+
+    .dual-drive-vs {
+      grid-column: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: var(--text-5xl);
+      font-weight: 900;
+      color: var(--color-indigo);
+      text-shadow: var(--glow-indigo);
+      justify-self: center;
+    }
+
+    .dual-drive-card--tech,
+    .dual-drive-grid > .dual-drive-card:last-of-type {
+      grid-column: 3;
+    }
+
+    .dual-drive-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .dual-drive-card:hover {
+      border-color: var(--color-border-hover);
+      box-shadow: var(--shadow-card), var(--glow-indigo);
+    }
+
+    .dual-drive-card__icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-4);
+      display: block;
+    }
+
+    .dual-drive-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      margin-bottom: var(--space-3);
+    }
+
+    /* Responzivní chování Dual Drive na tabletech a mobilech */
+    @media (max-width: 768px) {
+      .dual-drive-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--space-6);
+      }
+      .dual-drive-grid > *,
+      .dual-drive-card--sport,
+      .dual-drive-card--tech,
+      .dual-drive-vs {
+        grid-column: 1 / -1 !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .dual-drive-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--space-4);
+      }
+      .dual-drive-grid > *,
+      .dual-drive-card--sport,
+      .dual-drive-card--tech,
+      .dual-drive-vs {
+        grid-column: 1 / -1 !important;
+      }
+    }
+
+    /* --- Contact grid --- */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+
+    /* --- Highlights list --- */
+    .highlights-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .highlights-list li {
+      font-size: var(--text-xs);
+      color: var(--color-text-secondary);
+      display: flex;
+      gap: var(--space-2);
+      align-items: flex-start;
+    }
+
+    .highlights-list li::before {
+      content: '◆';
+      color: var(--color-cyan);
+      font-size: 0.5rem;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    /* Contact status --- */
+    .contact-status {
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      margin-top: var(--space-4);
+    }
+    .contact-status.success {
+      background: rgba(16,185,129,0.15);
+      border: 1px solid var(--color-emerald);
+      color: var(--color-emerald);
+    }
+    .contact-status.error {
+      background: rgba(244,63,94,0.15);
+      border: 1px solid var(--color-rose);
+      color: var(--color-rose);
+    }
+
+    /* --- Footer --- */
+    .site-footer {
+      background: var(--color-bg-secondary);
+      border-top: 1px solid var(--color-border);
+      padding: var(--space-12) 0 var(--space-8);
+    }
+
+    /* --- Social links --- */
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      font-size: var(--text-sm);
+      transition: all var(--transition-base);
+    }
+
+    .social-link:hover {
+      border-color: var(--color-indigo);
+      color: var(--color-text-primary);
+      box-shadow: var(--glow-indigo);
+    }
+
+    /* --- Section divider --- */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body class="grid-bg">
+
+  <!-- Custom Cursor -->
+  <div id="custom-cursor" aria-hidden="true"></div>
+
+  <!-- ===================================================================
+       NAVIGACE
+  ==================================================================== -->
+  <nav class="site-nav" role="navigation" aria-label="Hlavní navigace">
+    <div class="container">
+      <div class="site-nav__inner">
+        <a href="#hero" class="site-nav__logo" aria-label="Jakub Sedlák — úvod">
+          kubkic<span>.</span>dev
+        </a>
+
+        <ul class="site-nav__links" id="nav-links">
+          <li><a href="#projects" class="site-nav__link">Projekty</a></li>
+          <li><a href="#about" class="site-nav__link">O mně</a></li>
+          <li><a href="#dual-drive" class="site-nav__link">Filosofie</a></li>
+          <li><a href="#contact" class="site-nav__link">Kontakt</a></li>
+          <li>
+            <a href="{{ author.links.github }}" target="_blank" rel="noopener noreferrer"
+               class="btn btn--outline btn--sm">
+              GitHub ↗
+            </a>
+          </li>
+        </ul>
+
+        <!-- Hamburger (mobil) -->
+        <button class="hamburger" id="hamburger-btn"
+                aria-label="Otevřít menu" aria-expanded="false" aria-controls="nav-links">
+          <span class="hamburger__line"></span>
+          <span class="hamburger__line"></span>
+          <span class="hamburger__line"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================================================================
+       HERO SEKCE
+  ==================================================================== -->
+  <section id="hero" class="hero-section hero-gradient" aria-label="Úvod">
+    <!-- Three.js canvas (bude inicializován v three-scene.js) -->
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+    <div class="container hero-content">
+      <div style="max-width: 800px;">
+        <!-- Eyebrow TypeWriter -->
+        <p id="hero-tagline" class="hero__tagline">
+          <span id="typewriter-text">Python Developer</span>
+        </p>
+
+        <!-- Hlavní nadpis H1 -->
+        <h1 id="hero-name">
+          <span class="hero__name">{{ author.name }}</span>
+        </h1>
+
+        <!-- Bio -->
+        <p id="hero-bio"
+           style="font-size: clamp(1rem, 2.5vw, 1.35rem); margin-top: var(--space-6); max-width: 60ch;">
+          {{ author.bio }}
+        </p>
+
+        <!-- Motto tagline -->
+        <p id="hero-motto"
+           style="margin-top: var(--space-4); font-family: var(--font-mono); font-size: var(--text-sm);
+                  color: var(--color-amber); letter-spacing: 0.06em;">
+          &ldquo;{{ author.motto }}&rdquo;
+        </p>
+
+        <!-- CTA tlačítka -->
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn--primary" id="hero-cta-projects">
+            Prozkoumat projekty ↓
+          </a>
+          <a href="{{ author.links.github }}" target="_blank" rel="noopener noreferrer"
+             class="btn btn--outline" id="hero-cta-github">
+            GitHub Profil ↗
+          </a>
+          <a href="{{ author.links.linkedin }}" target="_blank" rel="noopener noreferrer"
+             class="btn btn--ghost" id="hero-cta-linkedin">
+            LinkedIn ↗
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div style="position: absolute; bottom: var(--space-8); left: 50%; transform: translateX(-50%);
+                display: flex; flex-direction: column; align-items: center; gap: var(--space-2);"
+         aria-hidden="true">
+      <span style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em;
+                   color: var(--color-text-muted); text-transform: uppercase;">Scroll</span>
+      <div style="width: 1px; height: 48px; background: linear-gradient(to bottom, var(--color-indigo), transparent);
+                  animation: scroll-line 2s ease-in-out infinite;"
+           class="scroll-indicator"></div>
+      <style>
+        @keyframes scroll-line {
+          0%   { opacity: 0; transform: scaleY(0); transform-origin: top; }
+          50%  { opacity: 1; transform: scaleY(1); }
+          100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
+        }
+      </style>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===================================================================
+       STATS SEKCE
+  ==================================================================== -->
+  <section id="stats" aria-label="Statistiky portfolia">
+    <div class="container">
+      <div class="stats-grid">
+
+        <div class="stat-card reveal glass-panel">
+          <div class="stat-card__number"
+               data-target="{{ projects | length }}"
+               data-suffix="">0</div>
+          <div class="stat-card__label">Projektů celkem</div>
+        </div>
+
+        <div class="stat-card reveal reveal--delay-1 glass-panel">
+          <div class="stat-card__number"
+               data-target="{{ featured_projects | length }}"
+               data-suffix="">0</div>
+          <div class="stat-card__label">Flagship projektů</div>
+        </div>
+
+        <div class="stat-card reveal reveal--delay-2 glass-panel">
+          <div class="stat-card__number"
+               data-target="{{ categories | length }}"
+               data-suffix="">0</div>
+          <div class="stat-card__label">Kategorií</div>
+        </div>
+
+        <div class="stat-card reveal reveal--delay-3 glass-panel">
+          <div class="stat-card__number"
+               data-target="3"
+               data-suffix="+">0</div>
+          <div class="stat-card__label">Roky zkušeností</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===================================================================
+       PROJEKTY SEKCE
+  ==================================================================== -->
+  <section id="projects" aria-labelledby="projects-heading">
+    <div class="container">
+
+      <!-- Heading -->
+      <header class="section-heading">
+        <div class="section-heading__eyebrow">Showcase</div>
+        <h2 id="projects-heading" class="section-heading__title">
+          Projekt <span class="text-gradient">Matrix</span>
+        </h2>
+        <p class="section-heading__subtitle">
+          Každý projekt je ostrým nástrojem postaveným pro reálné použití —
+          od sub-sekundových scraperů přes AI valuátory až po fyzický hardware.
+        </p>
+      </header>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar project-filters reveal" role="tablist" aria-label="Filtr kategorií">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
+          Vše ({{ projects | length }})
+        </button>
+        {% for category in categories %}
+        <button class="filter-btn" data-filter="{{ category.id }}" role="tab" aria-selected="false">
+          {{ category.name }}
+        </button>
+        {% endfor %}
+      </div>
+
+      <!-- Projects Grid — Jinja2 cyklus -->
+      <div class="projects-grid" id="projects-grid">
+        {% for project in projects %}
+        <article
+          class="project-card {% if project.featured %}project-card--featured{% endif %}{% if loop.index0 >= 3 %} project-card--extra{% endif %}"
+          data-category="{{ project.category }}"
+          data-project-id="{{ project.id }}"
+          role="article"
+          aria-label="Projekt: {{ project.title }}"
+          tabindex="0"
+          {% if loop.index0 >= 3 %}style="display:none;"{% endif %}
+        >
+          <!-- Header -->
+          <div class="project-card__header">
+            <div>
+              <h3 class="project-card__title">{{ project.title }}</h3>
+              <p class="project-card__subtitle">{{ project.subtitle }}</p>
+            </div>
+
+            <!-- Badge -->
+            {% if project.badge %}
+            <span class="badge badge--{% if project.category == 'ai-data' %}cyan{% elif project.category == 'scraping-arbitrage' %}amber{% elif project.category == 'iot-hardware' %}emerald{% else %}indigo{% endif %}">
+              {{ project.badge }}
+            </span>
+            {% endif %}
+          </div>
+
+          <!-- Popis -->
+          <p class="project-card__desc">{{ project.short_description }}</p>
+
+          <!-- Highlights (první 2) -->
+          <ul class="highlights-list" aria-label="Klíčové vlastnosti">
+            {% for hl in project.highlights[:2] %}
+            <li>{{ hl }}</li>
+            {% endfor %}
+          </ul>
+
+          <!-- Tech tagy -->
+          <div class="project-card__tags" aria-label="Použité technologie">
+            {% for tech in project.technologies[:5] %}
+            <span class="tag">{{ tech }}</span>
+            {% endfor %}
+            {% if project.technologies | length > 5 %}
+            <span class="tag">+{{ project.technologies | length - 5 }}</span>
+            {% endif %}
+          </div>
+
+          <!-- Footer -->
+          <footer class="project-card__footer">
+            <a href="{{ project.github_url }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn--ghost btn--sm"
+               aria-label="Otevřít GitHub repozitář {{ project.title }}">
+              GitHub ↗
+            </a>
+            {% if project.featured %}
+            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-amber);">
+              ★ Featured
+            </span>
+            {% endif %}
+          </footer>
+        </article>
+        {% endfor %}
+      </div>
+      <!-- END projects grid -->
+
+      <!-- Tlačítko "Zobrazit další projekty" — zobrazí se pouze pokud jsou skryté karty -->
+      <div id="show-more-wrapper" style="
+        text-align: center;
+        margin-top: 2.5rem;
+        position: relative;
+      ">
+        <!-- Gradient fade naznačující pokračování -->
+        <div id="show-more-fade" style="
+          position: absolute;
+          top: -80px; left: 0; right: 0;
+          height: 80px;
+          background: linear-gradient(to bottom, transparent, var(--color-bg-primary));
+          pointer-events: none;
+        "></div>
+
+        <button id="show-more-btn" class="btn btn--outline" style="
+          gap: 0.6rem;
+          padding: 0.75rem 2rem;
+          font-size: 0.9rem;
+          border-color: var(--color-border-hover);
+          position: relative;
+          z-index: 1;
+        " aria-expanded="false">
+          <span id="show-more-label">Zobrazit další projekty</span>
+          <span id="show-more-icon" style="
+            display: inline-block;
+            transition: transform 0.3s ease;
+          ">↓</span>
+        </button>
+
+        <p id="show-more-count" style="
+          font-family: var(--font-mono);
+          font-size: 0.72rem;
+          color: var(--color-text-muted);
+          margin-top: 0.5rem;
+          letter-spacing: 0.05em;
+        "></p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===================================================================
+       O MNĚ SEKCE
+  ==================================================================== -->
+  <section id="about" aria-labelledby="about-heading">
+    <div class="container--narrow">
+
+      <header class="section-heading reveal">
+        <div class="section-heading__eyebrow">Autor</div>
+        <h2 id="about-heading" class="section-heading__title">
+          Kdo stojí za <span class="text-gradient">kódem</span>?
+        </h2>
+      </header>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: start;">
+
+        <!-- Bio -->
+        <div class="reveal">
+          <p style="font-size: var(--text-lg); line-height: 1.8; margin-bottom: var(--space-6);">
+            {{ author.bio }}
+          </p>
+          <p style="font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-amber);
+                    padding: var(--space-4); border-left: 2px solid var(--color-amber);
+                    background: rgba(245,158,11,0.05); border-radius: 0 var(--radius-md) var(--radius-md) 0;">
+            &ldquo;{{ author.motto }}&rdquo;
+          </p>
+
+          <div style="display: flex; gap: var(--space-3); margin-top: var(--space-8); flex-wrap: wrap;">
+            <a href="{{ author.links.github }}" target="_blank" rel="noopener noreferrer"
+               class="social-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+              </svg>
+              GitHub
+            </a>
+            <a href="{{ author.links.linkedin }}" target="_blank" rel="noopener noreferrer"
+               class="social-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              LinkedIn
+            </a>
+            <a href="mailto:{{ author.links.email }}" class="social-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              E-mail
+            </a>
+          </div>
+        </div>
+
+        <!-- Dovednosti -->
+        <div class="reveal reveal--delay-2">
+          <h3 style="font-size: var(--text-xl); margin-bottom: var(--space-6);">
+            Core <span class="text-gradient--emerald">Skills</span>
+          </h3>
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+            {% for skill in author.core_skills %}
+            <span class="skill-pill">{{ skill }}</span>
+            {% endfor %}
+          </div>
+
+          <!-- Kategorie projektů shrnutí -->
+          <div style="margin-top: var(--space-8);">
+            <h4 style="font-size: var(--text-base); color: var(--color-text-secondary);
+                       margin-bottom: var(--space-4); font-family: var(--font-mono); letter-spacing: 0.05em;">
+              Oblasti expertise
+            </h4>
+            <div style="display: flex; flex-direction: column; gap: var(--space-3);">
+              {% for category in categories %}
+              <div style="display: flex; align-items: center; gap: var(--space-3);">
+                <div style="width: 8px; height: 8px; border-radius: 50%;
+                            background: var(--color-indigo); flex-shrink: 0;"></div>
+                <span style="font-size: var(--text-sm); color: var(--color-text-secondary);">
+                  <strong style="color: var(--color-text-primary);">{{ category.name }}</strong>
+                  — {{ category.description }}
+                </span>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===================================================================
+       DUAL DRIVE SEKCE
+  ==================================================================== -->
+  <section id="dual-drive" aria-labelledby="dual-drive-heading">
+    <div class="container">
+
+      <header class="section-heading reveal">
+        <div class="section-heading__eyebrow">Filosofie</div>
+        <h2 id="dual-drive-heading" class="section-heading__title">
+          The <span class="text-gradient">Dual Drive</span>
+        </h2>
+        <p class="section-heading__subtitle">
+          Dvě zdánlivě odlišné světy — žíněnka a klávesnice —
+          řídí se přesně stejnými principy excelence.
+        </p>
+      </header>
+
+      <div class="dual-drive-grid">
+
+        <!-- Sport -->
+        <div class="dual-drive-card dual-drive-card--sport glass-panel" style="grid-column: 1;">
+          <span class="dual-drive-card__icon">🤼</span>
+          <h3 class="dual-drive-card__title" style="color: var(--color-amber);">
+            Vrcholový sport
+          </h3>
+          <p>Řecko-římský zápas na reprezentační úrovni. Vícenásobný mistr ČR, účastník MS a ME.</p>
+          <ul class="highlights-list" style="margin-top: var(--space-4);">
+            <li>Disciplína — trénink i pod tlakem termínů</li>
+            <li>Rychlost reakce — sub-sekundová rozhodování</li>
+            <li>Odolnost — kód, který nespadne v produkci</li>
+            <li>Tah na branku — nevzdávat se dokud to nefunguje</li>
+          </ul>
+        </div>
+
+        <!-- VS divider -->
+        <div class="dual-drive-vs" style="grid-column: 2;" aria-hidden="true">
+          <span style="display:flex;flex-direction:column;align-items:center;gap:0.2rem;line-height:1;">
+            <span style="font-size:0.65em;letter-spacing:0.18em;opacity:0.7;font-weight:600;">VS</span>
+            <span style="font-size:1.2em;">⚡</span>
+          </span>
+        </div>
+
+        <!-- Engineering -->
+        <div class="dual-drive-card dual-drive-card--tech glass-panel" style="grid-column: 3;">
+          <span class="dual-drive-card__icon">⚙️</span>
+          <h3 class="dual-drive-card__title" style="color: var(--color-cyan);">
+            Technologický inženýring
+          </h3>
+          <p>Automatizace nudné práce, reverzní inženýrství, AI integrace a hardware od nuly.</p>
+          <ul class="highlights-list" style="margin-top: var(--space-4);">
+            <li>Scraping pod 1 sekundu — arbitráž ve zlomku vteřiny</li>
+            <li>AI modely — Groq, Gemini, LLaMA pro reálné úlohy</li>
+            <li>Hardware — ESP32, Raspberry Pi, fyzické projekty</li>
+            <li>Docker — produkční nasazení bez slz</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Paralela citát -->
+      <div style="text-align: center; margin-top: var(--space-16);" class="reveal">
+        <blockquote style="font-family: var(--font-display); font-size: clamp(1.2rem, 3vw, 1.8rem);
+                           font-weight: 600; color: var(--color-text-primary); max-width: 800px;
+                           margin: 0 auto; line-height: 1.4;">
+          &ldquo;Disciplína z žíněnky = Schopnost psát čistý, odolný kód,
+          který nespadne v produkci. Rychlost reakce v zápase = 0.6s arbitráže.&rdquo;
+        </blockquote>
+        <cite style="display: block; margin-top: var(--space-4); font-family: var(--font-mono);
+                     font-size: var(--text-sm); color: var(--color-text-muted);">
+          — Jakub Sedlák, kubkic-code
+        </cite>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===================================================================
+       KONTAKT SEKCE
+  ==================================================================== -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <div class="container--narrow">
+
+      <header class="section-heading reveal">
+        <div class="section-heading__eyebrow">Kontakt</div>
+        <h2 id="contact-heading" class="section-heading__title">
+          Contact <span class="text-gradient">Beacon</span>
+        </h2>
+        <p class="section-heading__subtitle">
+          Máš projekt, nápad nebo chceš spolupracovat?
+          Napíši ti přes Telegram do pár minut.
+        </p>
+      </header>
+
+      <div class="contact-grid">
+
+        <!-- Kontaktní info -->
+        <div class="reveal">
+          <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+
+            <div>
+              <p style="font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.1em;
+                         text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-2);">
+                E-mail
+              </p>
+              <a href="mailto:{{ author.links.email }}" class="social-link"
+                 style="display: inline-flex;">
+                {{ author.links.email }}
+              </a>
+            </div>
+
+            <div>
+              <p style="font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.1em;
+                         text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-2);">
+                GitHub
+              </p>
+              <a href="{{ author.links.github }}" target="_blank" rel="noopener noreferrer"
+                 class="social-link" style="display: inline-flex;">
+                github.com/kubkic-code ↗
+              </a>
+            </div>
+
+            <div>
+              <p style="font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.1em;
+                         text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-2);">
+                LinkedIn
+              </p>
+              <a href="{{ author.links.linkedin }}" target="_blank" rel="noopener noreferrer"
+                 class="social-link" style="display: inline-flex;">
+                Jakub Sedlák ↗
+              </a>
+            </div>
+
+            <div class="glass-panel" style="padding: var(--space-4); border-radius: var(--radius-lg);">
+              <p style="font-size: var(--text-sm); color: var(--color-text-secondary);">
+                ⚡ Zpráva z tohoto formuláře dorazí přes
+                <strong style="color: var(--color-cyan);">Telegram Bot API</strong>
+                přímo na můj telefon. Obvykle odpovím do hodiny.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Formulář -->
+        <div class="reveal reveal--delay-2">
+          <div class="contact-form-wrapper">
+            <form id="contact-form" novalidate aria-label="Kontaktní formulář">
+              <div style="display: flex; flex-direction: column; gap: var(--space-5);">
+
+                <div class="form-group">
+                  <label for="contact-name" class="form-label">Jméno *</label>
+                  <input type="text" id="contact-name" name="name"
+                         class="form-input" placeholder="Jakub Novák"
+                         required autocomplete="name" />
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-email" class="form-label">E-mail *</label>
+                  <input type="email" id="contact-email" name="email"
+                         class="form-input" placeholder="jakub@priklad.cz"
+                         required autocomplete="email" />
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-message" class="form-label">Zpráva *</label>
+                  <textarea id="contact-message" name="message"
+                            class="form-textarea"
+                            placeholder="Ahoj Jakube, mám projekt..."
+                            required></textarea>
+                </div>
+
+                <button type="submit" id="contact-submit" class="btn btn--primary"
+                        style="width: 100%; justify-content: center;">
+                  Odeslat zprávu ↗
+                </button>
+
+                <div id="contact-status" class="contact-status" role="alert" aria-live="polite"></div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       FOOTER
+  ==================================================================== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-4);">
+
+        <div>
+          <p style="font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700;
+                    margin-bottom: var(--space-1);">
+            kubkic<span style="color: var(--color-indigo);">.</span>dev
+          </p>
+          <p style="font-size: var(--text-xs); color: var(--color-text-muted); font-family: var(--font-mono);">
+            © 2024 Jakub Sedlák — Python Developer & AI Engineer
+          </p>
+        </div>
+
+        <div style="display: flex; gap: var(--space-3);">
+          <a href="{{ author.links.github }}" target="_blank" rel="noopener noreferrer"
+             class="social-link btn--sm" aria-label="GitHub profil">GitHub</a>
+          <a href="{{ author.links.linkedin }}" target="_blank" rel="noopener noreferrer"
+             class="social-link btn--sm" aria-label="LinkedIn profil">LinkedIn</a>
+          <a href="mailto:{{ author.links.email }}"
+             class="social-link btn--sm" aria-label="E-mail kontakt">E-mail</a>
+        </div>
+
+        <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-muted);">
+          Built with Flask &amp; Vanilla CSS • {{ projects | length }} projektů
+        </p>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================
+       TERMINÁL DRAWER
+  ==================================================================== -->
+  <div id="terminal-overlay" class="terminal-overlay" aria-hidden="true"></div>
+
+  <div id="terminal-drawer" class="terminal-drawer" role="dialog"
+       aria-label="Interaktivní terminál" aria-modal="true">
+    <div class="terminal-titlebar">
+      <div class="terminal-titlebar__dots" aria-hidden="true">
+        <span class="terminal-titlebar__dot"></span>
+        <span class="terminal-titlebar__dot"></span>
+        <span class="terminal-titlebar__dot"></span>
+      </div>
+      <span class="terminal-titlebar__title">kubkic@portfolio — terminal — bash</span>
+      <button id="terminal-close" class="terminal-titlebar__close"
+              aria-label="Zavřít terminál">&times;</button>
+    </div>
+
+    <div id="terminal-output" class="terminal-output" aria-live="polite" aria-label="Výstup terminálu">
+    </div>
+
+    <div class="terminal-input-line">
+      <span class="terminal-prompt" aria-hidden="true">➜ kubkic ~/portfolio</span>
+      <input type="text" id="terminal-input" class="terminal-input"
+             placeholder="Zadejte příkaz... (nápověda: help)" autocomplete="off"
+             aria-label="Vstup terminálu" spellcheck="false" />
+    </div>
+  </div>
+
+  <!-- Terminal trigger button -->
+  <button id="terminal-trigger" class="terminal-trigger"
+          aria-label="Otevřít interaktivní terminál (nebo stiskni ~)"
+          title="Otevřít terminál [~]">
+    &gt;_
+  </button>
+
+  <!-- ===================================================================
+       SKRIPTY — pořadí je důležité!
+       1. CDN knihovny (Three.js, GSAP) jsou načteny v <head>
+       2. Lokální moduly se načítají zde
+  ==================================================================== -->
+
+  <!-- Three.js 3D scéna -->
+  <script src="{{ url_for('static', filename='js/three-scene.js') }}"></script>
+
+  <!-- GSAP animace -->
+  <script src="{{ url_for('static', filename='js/gsap-animations.js') }}"></script>
+
+  <!-- Project grid (FLIP filtrování + specular highlight) -->
+  <script src="{{ url_for('static', filename='js/project-grid.js') }}"></script>
+
+  <!-- Holo-Inspector modal -->
+  <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+
+  <!-- Hlavní inicializátor (terminal, cursor, nav) -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>

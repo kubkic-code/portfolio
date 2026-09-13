@@ -1,0 +1,327 @@
+/* ==========================================================================
+   responsive.css — Media queries pro mobil, tablet a velké displeje
+   ========================================================================== */
+
+/* --- Globální pojistka proti horizontálnímu overflow --- */
+/* Zachytí jakýkoliv živelnatě široký element */
+* {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+/* Výjimky: elementy, které smají být širší než rodič */
+img, video, canvas, svg {
+  max-width: 100%;
+}
+
+/* --- Zařízení bez hover (dotykové) — deaktivuj 3D tilt efekty na kartách --- */
+@media (hover: none) {
+  .project-card {
+    transform: none !important;
+  }
+  .btn:hover,
+  .filter-btn:hover,
+  .project-filters button:hover,
+  .stat-card:hover,
+  .filter-btn.active,
+  .project-filters button.active {
+    transform: none !important;
+  }
+}
+
+/* --- Mobilní menu hamburger --- */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  /* Min 44x44px touch target (WCAG 2.5.5) */
+  min-width: 44px;
+  min-height: 44px;
+  padding: var(--space-2);
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger__line {
+  width: 24px;
+  height: 2px;
+  background: var(--color-text-primary);
+  border-radius: 2px;
+  transition: all var(--transition-base);
+}
+
+/* --- Tablet (max 1024px) --- */
+@media (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* --- Tablet malý / mobil (max 768px) --- */
+@media (max-width: 768px) {
+  section { padding: var(--space-16) 0; }
+
+  /* === Navigace === */
+  .site-nav__links {
+    display: none;
+    position: fixed;
+    top: 64px;
+    left: 0; right: 0;
+    background: rgba(8,9,13,0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-8) 0;
+    gap: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-nav__links.is-open { display: flex; }
+
+  .hamburger { display: flex; }
+
+  /* === Hero — zmenšení fontů pro mobilní viewport === */
+  .hero__name {
+    font-size: clamp(2.1rem, 11vw, 3.6rem) !important;
+    line-height: 1.08 !important;
+  }
+
+  .hero__tagline {
+    font-size: clamp(0.7rem, 3.5vw, 0.9rem) !important;
+    letter-spacing: 0.07em !important;
+  }
+
+  /* Obecný h1 v hero oblasti */
+  .hero__title {
+    font-size: clamp(2rem, 10vw, 3.5rem) !important;
+  }
+
+  /* TypeWriter / podtitulek */
+  #typewriter-text,
+  .hero__subtitle {
+    font-size: clamp(0.9rem, 4vw, 1.1rem) !important;
+  }
+
+  /* CTA tlačítka do sloupce */
+  .hero-cta {
+    flex-direction: column !important;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  /* Backdrop za hero textem — více zaostřená oblast */
+  .hero-content > div::before {
+    inset: -1rem -1.5rem !important;
+    background: radial-gradient(
+      ellipse at 30% 50%,
+      rgba(8,9,13,0.90) 0%,
+      rgba(8,9,13,0.60) 55%,
+      transparent 100%
+    ) !important;
+  }
+
+  /* === Filter Bar — flex-wrap + větší touch targety === */
+  .filter-bar,
+  .project-filters {
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    gap: 0.55rem !important;
+    margin-bottom: 2rem !important;
+    /* Vodorovný scroll jako záloha pro extrémně úzké displeje */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+
+  /* Pilulková tlačítka — min 44px výška (WCAG touch target) */
+  .filter-btn,
+  .project-filters button {
+    padding: 0.65rem 1.1rem !important;
+    font-size: 0.82rem !important;
+    min-height: 44px;
+    flex-shrink: 0;
+    /* Deaktivovat translateY hover efekt (na touch nemá smysl) */
+    transform: none !important;
+  }
+
+  .filter-btn.active,
+  .project-filters button.active {
+    transform: none !important;
+  }
+
+  /* === Projects Grid — 1 sloupec na mobilu === */
+  .projects-grid,
+  #projects-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* === Stats grid === */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* === Kontaktní formulář === */
+  .contact-form-wrapper {
+    padding: var(--space-6);
+  }
+
+  /* === Terminál — 65vh max, nezablokuje celý displej === */
+  .terminal-drawer {
+    height: 65vh !important;
+    max-height: unset !important;
+  }
+
+  /* Tlačítko terminálu — dostatečný touch target */
+  .terminal-trigger {
+    bottom: var(--space-4);
+    right: var(--space-4);
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  /* Zavírací × v title baru — větší plocha kliknutí */
+  .terminal-titlebar__close {
+    padding: var(--space-2) var(--space-3) !important;
+    font-size: 1.5rem !important;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* === Contact Beacon — ze screenshotu přetéká doprava === */
+  /* Grid: 2 sloupce → 1 sloupec */
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-8) !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Kontaktní formulář wrapper — nepřekračuje šířku viewportu */
+  .contact-form-wrapper {
+    padding: var(--space-5) !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* === About sekce — 2 sloupce bio+skills → 1 sloupec === */
+  /* Inline style grid v HTML překryjeme pomocí !important */
+  #about [style*="grid-template-columns"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: var(--space-8) !important;
+  }
+
+  /* === Holo-Modal (detail projektu) — mobilní oprava === */
+  #holo-modal {
+    width: 96vw !important;
+    max-width: 96vw !important;
+    max-height: 90vh !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Grid klíčových vlastností uvnitř modalu → 1 sloupec */
+  #modal-highlights {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Header v modalu → wrap (zavírací tlačítko ne vlevo od titulu) */
+  #modal-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: var(--space-3) !important;
+  }
+
+  /* Padding modalu na mobilu menší */
+  #modal-header,
+  #holo-modal > div:last-child {
+    padding: 1.25rem !important;
+  }
+
+  /* === Dual Drive sekce === */
+  .dual-drive-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-6);
+  }
+
+  .dual-drive-grid > *,
+  .dual-drive-card--sport,
+  .dual-drive-card--tech,
+  .dual-drive-vs {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+/* --- Malý mobil (max 480px) --- */
+@media (max-width: 480px) {
+  /* === Stats grid — 1 sloupec === */
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* === Filter Bar extra compact === */
+  .filter-bar,
+  .project-filters {
+    gap: 0.45rem !important;
+    margin-bottom: 1.75rem !important;
+  }
+
+  .filter-btn,
+  .project-filters button {
+    font-size: 0.75rem !important;
+    padding: 0.6rem 0.95rem !important;
+  }
+
+  /* === Hero jméno ještě kompaktnější === */
+  .hero__name {
+    font-size: clamp(1.8rem, 12vw, 2.8rem) !important;
+  }
+
+  /* === Dual Drive === */
+  .dual-drive-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-4);
+  }
+
+  .dual-drive-grid > *,
+  .dual-drive-card--sport,
+  .dual-drive-card--tech,
+  .dual-drive-vs {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+/* --- Velké displeje (min 1440px) --- */
+@media (min-width: 1440px) {
+  .projects-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+/* --- Snížený pohyb (přístupnost) --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html { scroll-behavior: auto; }
+}

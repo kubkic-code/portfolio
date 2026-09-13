@@ -1,0 +1,394 @@
+{
+  "author": {
+    "name": "Jakub Sedlák",
+    "handle": "kubkic-code",
+    "title": "Python Developer, Automation Engineer & AI Integrator",
+    "bio": "Student ČVUT a vrcholový reprezentant ČR v řecko-římském zápase (vícenásobný mistr ČR, účastník MS a ME). Stavím vysoce efektivní nástroje pro web scraping, investiční analytiku, AI integraci a hardware automatizaci.",
+    "motto": "Automate everything. Compete in everything. Go all out.",
+    "links": {
+      "github": "https://github.com/kubkic-code",
+      "linkedin": "https://www.linkedin.com/in/jakub-sedlák-22861541a",
+      "email": "sedlak.jaku11@gmail.com"
+    },
+    "core_skills": [
+      "Python",
+      "Asynchronní scraping (Playwright, BeautifulSoup, Selenium)",
+      "LLM & AI integrace (Groq, Gemini, LLaMA)",
+      "MicroPython & IoT (ESP32, SPI, displeje)",
+      "Telegram Bot API & Webhooky",
+      "Docker & Raspberry Pi nasazení",
+      "Moderní frontend & animace (GSAP, Three.js, CSS Grid)"
+    ]
+  },
+  "categories": [
+    {
+      "id": "ai-data",
+      "name": "AI & Finanční Analytika",
+      "description": "Systémy integrující velké jazykové modely a burzovní či realitní data."
+    },
+    {
+      "id": "scraping-arbitrage",
+      "name": "Web Scraping & Arbitráž",
+      "description": "Bleskurychlé a odolné scrapery detekující cenové anomálie na trhu v reálném čase."
+    },
+    {
+      "id": "automation-bots",
+      "name": "Automatizace & Boti",
+      "description": "Boti šetřící čas, automatizující rezervace, importy a firemní procesy."
+    },
+    {
+      "id": "iot-hardware",
+      "name": "IoT & Hardware",
+      "description": "Fyzická zařízení a mikrokontroléry s vlastním firmwarem pro zobrazení tržních dat."
+    },
+    {
+      "id": "web-creative",
+      "name": "Webový vývoj & UI/UX Lab",
+      "description": "Moderní responzivní weby, interaktivní aplikace a kreativní CSS/Canvas experimenty."
+    }
+  ],
+  "projects": [
+    {
+      "id": "valuation-pro",
+      "title": "ValuationPro",
+      "subtitle": "Kalkulačka vnitřní hodnoty akcií s Groq AI",
+      "category": "ai-data",
+      "featured": true,
+      "badge": "Flagship AI",
+      "short_description": "Komplexní finanční platforma oceňující akcie pomocí 4 ověřených investičních modelů (DCF, Graham, Lynch, Hist. P/E) v kombinaci s Groq LLaMA 3.3 a Yahoo Finance daty.",
+      "full_description": "ValuationPro slouží hodnotovým investorům k přesnému ocenění akciových titulů bez spekulací. AI model automaticky klasifikuje typ firmy (Růstová, Klasická, Cyklická) a přiřadí optimální váhy jednotlivým oceňovacím modelům. Zahrnuje 'Teploměr trhu' (S&P 500 P/E + VIX), bezpečnostní polštář (Margin of Safety), simulaci stresových scénářů (Bear/Base/Bull) a portfolio tracker s podporou CSV.",
+      "technologies": ["Python", "Flask", "Groq API (LLaMA 3.3)", "yfinance", "JavaScript", "Glassmorphism CSS"],
+      "highlights": [
+        "Triangulace hodnoty přes 4 nezávislé modely (DCF, Graham, Lynch, Hist. P/E)",
+        "Groq LLM pro inteligentní parsing a autokategorizaci firem",
+        "Teploměr zdraví amerického trhu s live metrikami VIX a S&P 500",
+        "Prémiové UI s tmavým/světlým režimem a skleněným designem (backdrop-filter)"
+      ],
+      "source_path": "vypocet_vnitrni_hodnoty",
+      "github_url": "https://github.com/kubkic-code/ValuationPro"
+    },
+    {
+      "id": "surebet-bot",
+      "title": "Surebet Bot (TripiTropi)",
+      "subtitle": "Bleskurychlý live arbitrážní bot pro sázkové kanceláře",
+      "category": "scraping-arbitrage",
+      "featured": true,
+      "badge": "High Frequency",
+      "short_description": "Plně asynchronní robot v Playwrightu, který skenuje Tipsport, Betano a Fortunu za 0.6–1.0 s, nachází arbitrážní sázky (surebety), sám vyplňuje tikety a odesílá foto-důkazy na Telegram.",
+      "full_description": "Bot překonává limity běžných scraperů nasazením paralelních headless prohlížečů s přímým čtením DOM stromu, což eliminuje riziko banu na API. Při detekci matematicky ziskové příležitosti na live tenisu v reálném čase rozklikne kurzy, předvyplní vklady rozpočítané na garantovaný zisk, vyfotí tiket s chytrým přepínáním viewportu (1080p) a odešle notifikaci na Telegram dříve, než sázkovky stihnou zareagovat.",
+      "technologies": ["Python", "Playwright", "Asyncio", "Telegram Bot API", "DOM Parsing"],
+      "highlights": [
+        "Paralelní sken 3 největších CZ sázkových kanceláří pod 1 sekundu",
+        "Automatické rozkliknutí kurzů a předvyplnění tiketů na obou platformách",
+        "Generování fotodůkazů (screenshotů) s ořezem na sticky lišty",
+        "Fast-fail mechanismus pro okamžité zrušení při bleskové změně kurzu"
+      ],
+      "source_path": "TripiTropi",
+      "github_url": "https://github.com/kubkic-code/Surebet-Bot"
+    },
+    {
+      "id": "digger-scraper",
+      "title": "Digger Telegram Scraper",
+      "subtitle": "24/7 Arbitrážní hlídač minibagrů pro VIP investory",
+      "category": "scraping-arbitrage",
+      "featured": true,
+      "badge": "Dockerized Pi 4",
+      "short_description": "Autonomní multi-portál scraper (Bazoš.cz + Kleinanzeigen.de) monitorující trh použitých minibagrů. Odfiltrovává šrot i podvody a ihned posílá lukrativní nabídky platícím klientům na Telegram.",
+      "full_description": "Použité stavební stroje (Kubota, JCB, Yanmar, Takeuchi, Cat) se při dobré ceně prodávají během několika hodin. Tento systém běží 24/7 na Raspberry Pi 4 v lehkém Docker kontejneru. Obsahuje heuristickou pipelinu, která zahazuje půjčovny, náhradní díly, hračky, čínské kopie i pokusy o phishing a podezřelé platební metody. Nové validní nabídky posílá do VIP kanálu s kompletními fotkami a specifikací.",
+      "technologies": ["Python 3.12", "BeautifulSoup4", "Docker Compose", "Telegram Bot API", "Raspberry Pi 4", "Regex Filtering"],
+      "highlights": [
+        "Mezinárodní skenování českého i německého trhu (Kleinanzeigen session warming)",
+        "Striktní anti-scam detekce a filtrace falešných překladů",
+        "Paměťová stopa pod 120 MB RAM optimalizovaná pro Raspberry Pi 4",
+        "Perzistentní deduplikace zajišťující nulové duplicitní alerty"
+      ],
+      "source_path": "scrapers/bagr",
+      "github_url": "https://github.com/kubkic-code/digger-scraper"
+    },
+    {
+      "id": "garmin-arbitrage",
+      "title": "Garmin Market Intelligence & Arbitrage",
+      "subtitle": "Sledovač rychlosti prodeje a cenových propadů hodinek",
+      "category": "scraping-arbitrage",
+      "featured": true,
+      "badge": "Data Analytics",
+      "short_description": "Analytický engine a Telegram hlídač pro second-hand hodinky Garmin na Bazoši a Vinted. Měří rychlost prodeje jednotlivých modelů (days_to_sell) a nabízí interaktivní Streamlit dashboard.",
+      "full_description": "Systém slouží pro flipping a ziskové přeprodávání chytrých hodinek Garmin (Fenix, Epix, Forerunner, Instinct). Pravidelně scrapuje inzeráty, ukládá je do SQLite a pomocí dedikovaného daemona zjišťuje, kdy inzerát zmizel, čímž vypočítává reálnou likviditu na trhu. Součástí je okamžitý Telegram bot na nabídky pod historickým mediánem a Streamlit dashboard s interaktivními Plotly boxploty.",
+      "technologies": ["Python 3.12", "Streamlit", "SQLite", "Plotly", "Docker", "Telegram API", "Home Assistant Webhooks"],
+      "highlights": [
+        "Automatická klasifikace modelů z textu inzerátů pomocí regexu",
+        "Metrika 'days_to_sell' odhalující nejlikvidnější zboží na trhu",
+        "Detekce cenových anomálií a podpultových nabídek s vyčíslením slevy",
+        "Streamlit analytický dashboard s distribucí cen a objemem prodejů"
+      ],
+      "source_path": "scrapers/garmin",
+      "github_url": "https://github.com/kubkic-code/garmin-scraper"
+    },
+    {
+      "id": "brainstorm",
+      "title": "BrainStorm v2.0",
+      "subtitle": "Osobní AI Mentor a Druhý Mozek v terminálu",
+      "category": "ai-data",
+      "featured": true,
+      "badge": "AI & Obsidian",
+      "short_description": "Interaktivní CLI asistent a vzdělávací mozek propojující Google Gemini API s Obsidian vaultem. Generuje studijní roadmapy, výukové materiály a interaktivní kvízy s automatickým trackováním pokroku.",
+      "full_description": "BrainStorm provede uživatele procesem hlubokého učení jakéhokoliv tématu. Po zadání cíle položí dynamické upřesňující otázky, sestaví strukturovanou roadmapu a vygeneruje markdown poznámky do Obsidianu včetně doporučených YouTube zdrojů, glosářů a kvízů. Po úspěšném zvládnutí terminálového kvízu se splněné úkoly v Obsidianu samy odškrtnou.",
+      "technologies": ["Python", "Google Gemini API", "Obsidian Vault", "Questionary", "Rich CLI", "Prompt Engineering"],
+      "highlights": [
+        "Interaktivní terminálové rozhraní s klávesnicovou navigací",
+        "Automatické plnění a organizace poznámek v Obsidianu s vazbami",
+        "Generování interaktivních testů znalostí s validací odpovědí",
+        "Lazy loading obsahu pro úsporu tokenů a maximální relevanci"
+      ],
+      "source_path": "BrainStorm",
+      "github_url": "https://github.com/kubkic-code/BrainStorm"
+    },
+    {
+      "id": "realitni-radar",
+      "title": "AI Realitní Radar",
+      "subtitle": "Automatizovaný skener a valuátor nemovitostí",
+      "category": "ai-data",
+      "featured": false,
+      "badge": "Real Estate AI",
+      "short_description": "Tržní radar skenující realitní servery přes Playwright, extrahující parametry přes Groq AI a porovnávající ceny bytů vůči cenovým mapám ve Streamlit dashboardu.",
+      "full_description": "Nástroj pro investory do nemovitostí. Prochází inzeráty, parsuje stav objektu, dispozici, lokaci a výměru. Následně pomocí AI a referenčních tabulek hodnotí, zda je nabídka předražená, nebo naopak představuje skvělou investiční příležitost. Obsahuje sledování historie cen a Telegram upozornění.",
+      "technologies": ["Python", "Playwright", "Groq API", "Streamlit", "SQLite", "Plotly"],
+      "highlights": [
+        "Bypass moderních ochran realitních portálů přes Playwright",
+        "Automatické čištění parametrů bytů s AI normalizací",
+        "Barevné zvýraznění podhodnocených nabídek",
+        "Interaktivní analytické tabulky a cenové mapy"
+      ],
+      "source_path": "realitky web scraper - IDE",
+      "github_url": "https://github.com/kubkic-code/realitky_webscraper_bot"
+    },
+    {
+      "id": "btc-tracker-esp32",
+      "title": "BTC Tracker ESP32",
+      "subtitle": "Fyzický hardware ticker s barevným TFT displejem",
+      "category": "iot-hardware",
+      "featured": true,
+      "badge": "Hardware / IoT",
+      "short_description": "Fyzický stolní sledovač Bitcoin trhu na mikrokontroléru ESP32 a 3.2\" ILI9341 displeji v MicroPythonu. Využívá dual-core architekturu pro absolutně plynulý chod bez zamrzání.",
+      "full_description": "Zařízení disponuje 4 přepínatelnými obrazovkami ovládanými hardwarovým tlačítkem: živá cena BTC z Binance API, Fear & Greed Index s dynamickým barevným podbarvením, 24h procentuální změna a digitální NTP hodiny. Díky běhu síťových požadavků na druhém jádře procesoru (_thread) a partial překreslování displeje je odezva okamžitá a obrazovka nebliká.",
+      "technologies": ["MicroPython", "ESP32", "ILI9341 TFT (SPI)", "Binance API", "Alternative.me API", "Dual-Core Threading"],
+      "highlights": [
+        "Dual-core zpracování (_thread) – UI nikdy nečeká na síťové volání",
+        "Chytré partial překreslování eliminující blikání displeje",
+        "4 interaktivní režimy (Cena, Fear & Greed, 24h Delta, NTP Hodiny)",
+        "Kompletní Wokwi simulace v diagram.json pro okamžité testování"
+      ],
+      "source_path": "bitcoin price tracker HARDWARE",
+      "github_url": "https://github.com/kubkic-code/BTC_tracker_ESP32"
+    },
+    {
+      "id": "key-heatmap-analytics",
+      "title": "Key-Heatmap Analytics",
+      "subtitle": "Neviditelný desktopový tracker produktivity a klikací mapy",
+      "category": "automation-bots",
+      "featured": false,
+      "badge": "Privacy First",
+      "short_description": "Běžící na pozadí Windows bez okna, zaznamenává kliknutí myši, úhozy kláves (WPM) a čas v aplikacích. Data vizualizuje v elegantním dark webovém dashboardu.",
+      "full_description": "Osobní nástroj pro měření produktivity. Sleduje, kde uživatel kliká (vykresluje tepelné mapy obrazovky), frekvenci nejpoužívanějších kláves, rychlost psaní v čase a čas strávený ve vývojovém prostředí vs. prohlížeči. Všechna data zůstávají 100% lokálně v SQLite bez odesílání na internet, s automatickým maskováním citlivých oken (hesla, bankovnictví).",
+      "technologies": ["Python", "Flask", "SQLite", "pynput", "Win32 API", "Chart.js"],
+      "highlights": [
+        "DPI-aware záznam souřadnic myši napříč monitory",
+        "Interaktivní click heatmap a WPM křivka produktivity v čase",
+        "Lokální SQLite databáze s ochranou soukromí a auto-maskováním",
+        "Samostatný sběrač na pozadí nezávislý na běhu dashboardu"
+      ],
+      "source_path": "github/key-heatmap-analytics-main",
+      "github_url": "https://github.com/kubkic-code/key-heatmap-analytics"
+    },
+    {
+      "id": "hlidac-slev",
+      "title": "Bazar Watchdog (Hlídač Slev)",
+      "subtitle": "Telegram bot pro vyhledávání extrémních e-shop slev",
+      "category": "scraping-arbitrage",
+      "featured": false,
+      "badge": "Telegram Bot",
+      "short_description": "Interaktivní bot, který na povel prohledá bazarové, rozbalené a outletové sekce Alza, Datart a Mironet a do chatu pošle TOP nabídky se slevou 25–70 %.",
+      "full_description": "Bot využívá asynchronní headless prohlížeče a BeautifulSoup k parsování outletových kategorií předních českých prodejců elektroniky. Algoritmus počítá skóre výhodnosti nabídky na základě procentuální slevy i nominální úspory, filtruje duplicity přes SQLite a podporuje fulltextové dotazy na konkrétní hardware (např. RTX 4070, MacBook).",
+      "technologies": ["Python", "Playwright", "BeautifulSoup4", "Telegram Bot API", "SQLite"],
+      "highlights": [
+        "Podpora dotazů na konkrétní modely i globálního přehledu slev",
+        "Multi-shop parsing (Alza, Datart, Mironet) s normalizací cen",
+        "Skórovací systém pro řazení podle reálné kvality slevy",
+        "Anti-spam ochrana a ukládání historie nabídek"
+      ],
+      "source_path": "hlidac_slev",
+      "github_url": "https://github.com/kubkic-code"
+    },
+    {
+      "id": "gordic-asistent",
+      "title": "Gordic Fakturační Asistent",
+      "subtitle": "Desktopová AI aplikace pro konverzi PDF faktur na ISDOC",
+      "category": "automation-bots",
+      "featured": false,
+      "badge": "Enterprise Tool",
+      "short_description": "Desktopová aplikace v CustomTkinter s AI backendem přes Groq LLM. Automaticky stahuje faktury z e-mailu (IMAP), extrahuje účetní data z PDF a generuje formát ISDOC pro ekonomický systém Gordic.",
+      "full_description": "Komplexní řešení eliminující ruční přepisování dodavatelských faktur do účetního softwaru Gordic. Obsahuje integrovaného poštovního klienta, který stahuje přílohy z mailu, lokální fulltextový index archivních faktur a Groq LLM parser pro přesnou extrakci IČO, DIČ, částek, DPH i položek do validní struktury ISDOC. Zabaleno do samostatného Windows .exe.",
+      "technologies": ["Python", "CustomTkinter (GUI)", "Groq API", "PyPDF2", "IMAPlib", "XML/ISDOC", "PyInstaller"],
+      "highlights": [
+        "Automatický import příloh přímo ze schránky přes IMAP",
+        "LLM extrakce nestrukturovaných dat z naskenovaných a digitálních PDF",
+        "Generování standardizovaných ISDOC XML souborů připravených k importu",
+        "Moderní CustomTkinter rozhraní s vyhledáváním a archivací"
+      ],
+      "source_path": "gordick/python",
+      "github_url": "https://github.com/kubkic-code"
+    },
+    {
+      "id": "cinema-seat-hacker",
+      "title": "Cinema Seat Hacker",
+      "subtitle": "Automatizovaný bot pro držení sedadel v CineStaru s mobilním Kill-Switchem",
+      "category": "automation-bots",
+      "featured": false,
+      "badge": "Smart Hack",
+      "short_description": "Bot obcházející 20minutový nákupní košíkový limit v síti kin CineStar. Udržuje sedadla rezervovaná a nabízí lehký webový mobilní Kill-Switch pro uvolnění míst na jedno kliknutí.",
+      "full_description": "Řeší situaci, kdy si parta lidí potřebuje podržet nejlepší místa v kině před schválením termínu. Bot využívá techniku 'Remove & Re-add' s promazáváním cookies pro generování nových session bez ztráty pozice sedadel. Na lokální Wi-Fi běží Flask server jako mobilní ovládací panel s tlačítkem pro okamžité uvolnění košíku (graceful release).",
+      "technologies": ["Python", "Selenium WebDriver", "Flask", "Threading", "Mobile Web UI"],
+      "highlights": [
+        "Vizuální auto-detekce a ukládání vybraných sedadel přímo z browseru",
+        "Cyklická obnova nákupního košíku bez timeoutu rezervačního systému",
+        "Mobilní Flask Kill-Switch pro ovládání z chytrého telefonu",
+        "Graceful shutdown zabraňující nechtěnému blokování sálu"
+      ],
+      "source_path": "github/cinema-seat-hacker-main",
+      "github_url": "https://github.com/kubkic-code/cinema-seat-hacker"
+    },
+    {
+      "id": "yarmill-bot",
+      "title": "Yarmill Training Plan Importer",
+      "subtitle": "Headless automatizace tréninků na GitHub Actions",
+      "category": "automation-bots",
+      "featured": false,
+      "badge": "CI/CD Cron",
+      "short_description": "Autonomní Python bot běžící denně na GitHub Actions, který se přihlašuje do wrestlingové platformy Yarmill a bez lidského zásahu importuje tréninkové plány od trenéra.",
+      "full_description": "Vytvořeno pro potřeby vrcholového sportovce. Každý den v 18:00 se bot probudí v cloudovém runneru GitHub Actions, bezpečně načte přihlašovací údaje z GitHub Secrets, otevře headless Chrome, vyřeší případné vyskakovací dialogy a synchronizuje nový tréninkový blok. Běží 100% v cloudu bez nutnosti lokálního serveru.",
+      "technologies": ["Python 3.11", "Selenium", "Chrome Headless", "GitHub Actions (Cron)", "GitHub Secrets"],
+      "highlights": [
+        "Plně bezúdržbový chod v bezplatném CI/CD cloudu GitHub Actions",
+        "Automatické řešení kalendářních konfliktů a potvrzovacích modálů",
+        "Bezpečné uložení hesel v kryptovaných secretech",
+        "Nulové provozní náklady"
+      ],
+      "source_path": "github/yarmill-bot-main",
+      "github_url": "https://github.com/kubkic-code/yarmill-bot"
+    },
+    {
+      "id": "job-outreach-bot",
+      "title": "Cold-Outreach & Job Scouting Bot",
+      "subtitle": "AI automatizace vyhledávání firemních kontaktů a oslovování",
+      "category": "automation-bots",
+      "featured": false,
+      "badge": "AI B2B Agent",
+      "short_description": "Crawler webů a vyhledávačů (Seznam.cz, DuckDuckGo) extrahující kontaktní e-maily firem a generující personalizované nabídky spolupráce s využitím Groq LLM.",
+      "full_description": "Skript automatizuje rešerši potenciálních B2B klientů nebo zaměstnavatelů. Na základě klíčových slov projde výsledky vyhledávání, vyfiltruje balast a katalogové weby, projde weby firem pro nalezení kontaktních e-mailů a přes Groq API vytvoří na míru formulovaný úvodní e-mail zohledňující zaměření dané firmy.",
+      "technologies": ["Python", "Groq API", "BeautifulSoup4", "DuckDuckGo API", "SMTP / EmailMessage"],
+      "highlights": [
+        "Filtrování doménového spamu a katalogových agregátorů",
+        "Extrakce e-mailových adres přímo z webových stránek",
+        "Dynamická tvorba personalizovaného textu nabídky přes LLM",
+        "Automatické odesílání přes zabezpečený SMTP protokol"
+      ],
+      "source_path": "robot na posilání nabídek na práci",
+      "github_url": "https://github.com/kubkic-code"
+    },
+    {
+      "id": "spotify-pokedex",
+      "title": "PokéPlayer (SpotifyPokedex)",
+      "subtitle": "Retro pixel-art přehrávač hudby pro Spotify",
+      "category": "web-creative",
+      "featured": false,
+      "badge": "Retro UI",
+      "short_description": "Nostalgický webový ovladač pro Spotify inspirovaný rozhraním herního Pokédexu. Připojuje se k Spotify API a nabízí ovládání playbacku, playlistů i retro grafiku.",
+      "full_description": "Aplikace postavená na Flasku a knihovně Spotipy. Umožňuje uživateli ovládat hudbu na aktivním zařízení, procházet playlisty a sledovat co právě hraje v autentickém 8-bitovém herním kabátě. Obsahuje vestavěnou obrazovou proxy pro obcházení problémů se staršími SSL certifikáty na retro zařízeních.",
+      "technologies": ["Python", "Flask", "Spotipy API", "OAuth2 Flow", "Pixel Art CSS", "HTML5"],
+      "highlights": [
+        "Autentický retro design s pixel-art typografií a rámečky",
+        "Kompletní ovládání Spotify (Play, Pause, Skip, Seek, Playlists)",
+        "Image proxying pro kompatibilitu se staršími displeji",
+        "Autorizace přes oficiální Spotify Authorization Code Flow"
+      ],
+      "source_path": "github/SpotifyPokedex-main",
+      "github_url": "https://github.com/kubkic-code/SpotifyPokedex"
+    },
+    {
+      "id": "traintrack",
+      "title": "TrainTrack",
+      "subtitle": "Interaktivní tréninkový kalendář s mobilní navigací",
+      "category": "web-creative",
+      "featured": false,
+      "badge": "Web App",
+      "short_description": "Webová aplikace pro plánování a evidenci sportovních tréninků s interaktivním měsíčním kalendářem, zápisem poznámek a mobilní animovanou navigací se sliding indikátorem.",
+      "full_description": "Aplikace navržená pro sportovce k přehlednému záznamu každodenních tréninkových dávek. Kliknutím na den v kalendáři se otevře modální okno pro detailní zápis nebo editaci tréninku. Dny s tréninkem jsou barevně odlišeny. Rozhraní obsahuje spodní navigační lištu s plynulým indikátorem přechodu ve stylu moderních mobilních aplikací.",
+      "technologies": ["HTML5", "CSS3 Dark Theme", "JavaScript (AJAX, Modals)", "PHP", "MySQL", "Ionicons"],
+      "highlights": [
+        "Interaktivní kalendář s dynamickým přepínáním měsíců",
+        "Mobilní spodní navigační lišta s animovaným indikátorem aktivní záložky",
+        "Přehledná statistika celkového počtu odtrénovaných jednotek",
+        "Ukládání poznámek do relační databáze"
+      ],
+      "source_path": "github/TrainTrack-main",
+      "github_url": "https://github.com/kubkic-code/TrainTrack"
+    },
+    {
+      "id": "mir-kebab-web",
+      "title": "Mir Kebab Holice",
+      "subtitle": "Komerční gastronomický web s 3D Coverflow karuselem",
+      "category": "web-creative",
+      "featured": false,
+      "badge": "Client Web",
+      "short_description": "Prezentační web restaurace v Holicích s interaktivním 3D karuselem pokrmů (Swiper.js Coverflow), Dark/Light módem, integrovanou Google mapou a plynulým scrollováním.",
+      "full_description": "Moderní jednostránkový prezentační web pro oblíbený lokální kebab. Klade důraz na vizuální atraktivitu jídel pomocí 3D karuselu, přehledné zobrazení otevírací doby a kontaktů a snadnou dostupnost z mobilních zařízení s přepínačem mezi tmavým a světlým režimem.",
+      "technologies": ["HTML5", "CSS3", "JavaScript", "Swiper.js (Coverflow 3D)", "Google Maps API", "FontAwesome"],
+      "highlights": [
+        "3D Coverflow karusel pro interaktivní prezentaci nabídky jídel",
+        "Plně responzivní layout s tmavým a světlým režimem",
+        "Hladké kotvové scrollování a přehledná otevírací doba",
+        "Vysoká rychlost načítání bez zbytečných těžkých knihoven"
+      ],
+      "source_path": "github/Mir-Kebab-web-main",
+      "github_url": "https://github.com/kubkic-code/Mir-Kebab-web"
+    },
+    {
+      "id": "huja-burger-refactor",
+      "title": "Huja Burger (Refactoring Case Study)",
+      "subtitle": "Případová studie 3letého pokroku ve frontendovém vývoji",
+      "category": "web-creative",
+      "featured": false,
+      "badge": "Case Study",
+      "short_description": "Ukázkový refaktoring starého projektu z počátku programátorské cesty do moderního, čistého a sémantického kódu postaveného na CSS Gridu, Flexboxu a Glassmorphismu.",
+      "full_description": "Projekt prezentuje autorův technický růst za 3 roky. Porovnává verzi v1 (nadměrné inline styly, absolutní pozicování, absence responzivity, zbytečný backend) s verzí v2 (čisté sémantické HTML5, CSS Grid, mobile-first flexibilní rozvržení, CSS custom properties a glassmorphic prvky).",
+      "technologies": ["HTML5", "CSS3 (Grid & Flexbox)", "JavaScript", "Glassmorphism", "Mobile-first Responsive Design"],
+      "highlights": [
+        "Přímé srovnání v1 (historický kód) vs v2 (moderní standard)",
+        "100% čistý statický kód bez zbytečných dependencí",
+        "Dokonale responzivní rozvržení od mobilů po 4K monitory",
+        "Ukázka čistého kódu a architektury komponent"
+      ],
+      "source_path": "github/Huja-Burger-web-main",
+      "github_url": "https://github.com/kubkic-code/Huja-Burger-web"
+    },
+    {
+      "id": "creative-css-lab",
+      "title": "Creative CSS & Canvas Lab",
+      "subtitle": "Experimentální laboratoř animací, Canvas generování a UI komponent",
+      "category": "web-creative",
+      "featured": false,
+      "badge": "Creative Lab",
+      "short_description": "Rozsáhlá sbírka interaktivních komponent, tlačítek, formulářů a procedurálního Canvas umění – včetně interaktivního rostoucího stromu s částicovými ohňostroji a Web Audio API.",
+      "full_description": "Kolekce experimentálních frontendových mikroprojektů. Zahrnuje procedurálně rostoucí stromy na HTML5 Canvasu generující stovky srdíček a částic, interaktivní ohňostroje, zvukové syntezátory přes Web Audio API, skleněné ceníkové karty, animované vyhledávací lišty a responzivní slidery.",
+      "technologies": ["HTML5 Canvas API", "Web Audio API", "CSS3 Keyframe Animations", "Vanilla JavaScript", "Procedural Generation"],
+      "highlights": [
+        "Procedurální generování větví a částicových efektů na Canvasu",
+        "Web Audio API pro dynamické syntezátorové ozvučení akcí",
+        "Pokročilé mikrointerakce tlačítek, karet a formulářů",
+        "Čistý kód bez externích frameworků s důrazem na výkon"
+      ],
+      "source_path": "css",
+      "github_url": "https://github.com/kubkic-code/css-projects"
+    }
+  ]
+}

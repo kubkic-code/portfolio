@@ -1,0 +1,185 @@
+/* ==========================================================================
+   glassmorphism.css — Skleněné panely, blur efekty, nav, modaly
+   ========================================================================== */
+
+/* --- Hlavní skleněný panel --- */
+.glass-panel {
+  background: var(--color-bg-glass);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--radius-xl);
+}
+
+/* --- Navigace --- */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: var(--space-4) 0;
+  background: rgba(8, 9, 13, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(99,102,241,0.08);
+  transition: all var(--transition-slow);
+}
+
+.site-nav--scrolled {
+  padding: var(--space-3) 0;
+  background: rgba(8, 9, 13, 0.95);
+  border-bottom-color: rgba(99,102,241,0.15);
+}
+
+.site-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-nav__logo {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.site-nav__logo span {
+  color: var(--color-indigo);
+}
+
+.site-nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  list-style: none;
+}
+
+.site-nav__link {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+.site-nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-indigo);
+  transition: width var(--transition-base);
+}
+
+.site-nav__link:hover {
+  color: var(--color-text-primary);
+}
+
+.site-nav__link:hover::after { width: 100%; }
+
+/* --- Hero gradient overlay --- */
+.hero-gradient {
+  background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99,102,241,0.2) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 40% at 80% 60%, rgba(6,182,212,0.1) 0%, transparent 50%);
+}
+
+/* --- Holografická mřížka pozadí --- */
+.grid-bg {
+  position: relative;
+}
+
+.grid-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(99,102,241,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,102,241,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* --- Neon border card varianta --- */
+.neon-card {
+  position: relative;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  padding: 1px; /* padding pro gradient border */
+  overflow: hidden;
+}
+
+.neon-card__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--color-indigo), var(--color-cyan), var(--color-emerald));
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+}
+
+.neon-card:hover .neon-card__gradient { opacity: 1; }
+
+.neon-card__inner {
+  background: var(--color-bg-card);
+  border-radius: calc(var(--radius-xl) - 1px);
+  padding: var(--space-6);
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Contact section sklo --- */
+.contact-form-wrapper {
+  background: var(--color-bg-glass);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-12);
+}
+
+/* --- Form inputs --- */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.form-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.form-input,
+.form-textarea {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  width: 100%;
+  transition: all var(--transition-base);
+  outline: none;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--color-indigo);
+  background: rgba(99,102,241,0.06);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 140px;
+}
