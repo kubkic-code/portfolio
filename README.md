@@ -12,7 +12,7 @@
 
 **Interaktivní osobní portfolio s 3D vizuální scénou, REST API a produkčním Docker nasazením.**
 
-🌐 **Live Demo:** [https://kubkic.fun](https://kubkic.fun)
+🌐 **Live Demo:** [https://kubkic.fun](https://kubkic.fun) &nbsp;•&nbsp; ⚡ **GitHub Pages:** [https://kubkic-code.github.io/portfolio/](https://kubkic-code.github.io/portfolio/)
 
 <br />
 
