@@ -623,7 +623,7 @@ function initContactForm() {
       if (json.success) form.reset();
     } catch (err) {
       if (status) {
-        status.textContent = "Síťová chyba. Zkuste to znovu.";
+        status.innerHTML = 'Nepodařilo se kontaktovat server. Napište mi prosím přímo na <a href="mailto:sedlak.jaku11@gmail.com" style="color: var(--color-cyan); text-decoration: underline;">sedlak.jaku11@gmail.com</a>.';
         status.className = "contact-status error";
       }
     }

@@ -18,6 +18,16 @@
   async function fetchProject(id) {
     if (projectCache[id]) return projectCache[id];
 
+    // 1. Zkusit načíst z vložených globálních dat (okamžité a funguje i na GitHub Pages)
+    if (window.__PORTFOLIO_DATA__ && Array.isArray(window.__PORTFOLIO_DATA__.projects)) {
+      const match = window.__PORTFOLIO_DATA__.projects.find((p) => p.id === id);
+      if (match) {
+        projectCache[id] = match;
+        return match;
+      }
+    }
+
+    // 2. Fallback na REST API backend
     try {
       const res = await fetch(`/api/projects/${id}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);

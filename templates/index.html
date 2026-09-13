@@ -1025,7 +1025,10 @@
        SKRIPTY — pořadí je důležité!
        1. CDN knihovny (Three.js, GSAP) jsou načteny v <head>
        2. Lokální moduly se načítají zde
-  ==================================================================== -->
+  <!-- Globální data pro okamžitou offline/statickou odezvu -->
+  <script>
+    window.__PORTFOLIO_DATA__ = {{ data_json | safe if data_json is defined else 'null' }};
+  </script>
 
   <!-- Three.js 3D scéna -->
   <script src="{{ url_for('static', filename='js/three-scene.js') }}"></script>

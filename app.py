@@ -98,6 +98,7 @@ def index():
         categories=data["categories"],
         projects=data["projects"],
         featured_projects=[p for p in data["projects"] if p.get("featured")],
+        data_json=json.dumps(data, ensure_ascii=False),
     )
 
 
