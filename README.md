@@ -14,6 +14,10 @@
 
 🌐 **Live Demo:** [https://kubkic.fun](https://kubkic.fun)
 
+<br />
+
+<img src="static/assets/images/og-image.jpg" alt="Portfolio Preview" width="100%" style="border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);" />
+
 </div>
 
 ---
